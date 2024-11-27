@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<library path="mt_rviz_ui">
+  <class
+    name="MTRvizUI"
+    type="b_manipulated_rviz_ui::MTRvizUI"
+    base_class_type="rviz_common::Panel">
+    <description>
+      RViz panel for creating and managing frames for automated machine-tending systems.
+    </description>
+  </class>
+</library>
