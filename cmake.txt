@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.5)
+project(b_manipulated_rviz_ui)
+
+find_package(Qt5 REQUIRED COMPONENTS Widgets)
+# Find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rviz_common REQUIRED)
+find_package(interactive_markers REQUIRED)
+
+
+# Set up automatic MOC, UIC, and RCC for Qt5
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+# Declare the executable and its source files
+add_library(${PROJECT_NAME} SHARED
+  src/mt_rviz_ui.cpp
+)
+
+# Add Qt5 dependency
+ament_target_dependencies(${PROJECT_NAME}
+  rclcpp
+  rviz_common
+  interactive_markers
+  Qt5::Widgets
+)
+
+# Install the library
+install(TARGETS
+  ${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# Declare the plugin
+pluginlib_export_plugin_description_file(rviz_common_plugins ${CMAKE_CURRENT_SOURCE_DIR}/rviz_common_plugins.xml)
+
+ament_package()
